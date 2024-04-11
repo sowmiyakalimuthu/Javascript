@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            height: 100vh;
+            overflow-x: hidden;
+            background: rgb(1, 1, 45);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #validation{
+            width:400px;
+            height: max-content;
+            display: flex;
+            flex-direction: column;
+            border-radius: 5px;
+            /* box-shadow: 1px 1px 5px 2px rgb(255, 255, 255); */
+            box-shadow: inset 0 0 0.5em 0.1em #d7d7d7;
+            padding: 2%;
+            margin: 2%;
+        }
+        .p1{
+            color: red;
+            text-align: left;
+        }
+        .i1{
+            width: 380px;
+            height: 7vh;
+            border-radius: 5px;
+        }
+        h1{
+            color: rgb(245, 241, 167);
+            text-align: center;
+        }
+        button {
+            align-self: center;
+        }
+       button:hover{
+        box-shadow: 5px 3px 5px 1px rgb(68, 61, 61)
+       }
+    </style>
+</head>
+<body>
+    <div id="validation">
+        <h1>Enter your details</h1>
+        <input class="i1" onchange="email(event)" type="email" placeholder="email" >
+        <p id="pEmail" class="p1" ></p>
+        <input class="i1" onchange="password(event)" type="password" placeholder="password" >
+        <p id="pPass" class="p1" ></p>
+        <button onclick="loginInfo()" id="login"><b>Log in</b></button>
+    </div>
+    <script>
+        //to style buttons
+            document.getElementsByTagName('button')[0].style="font-size: 1.2em; width: 150px; height: 35px; background-color:  rgb(245, 241, 167); color:rgb(1, 1, 45); border-radius: 5px; border-color: rgba(240, 248, 255, 0);"
+        // Email & password validation
+        let e;
+        function email(b) {
+            e = b.target.value;
+            // console.log(e)
+        }
+        let p;
+        function password(c) {
+            p = c.target.value;
+            // console.log(p)
+        }
+    function loginInfo(){
+            let resEmail = '', resPass='', outPass = false, outEmail= false;
+    if(e == undefined){         //to check whether email field is empty 
+            resEmail+= "This field can't be empty <br>"
+    } else {                    //to check whether email missed any condition
+        if (e.charAt(0) != e.charAt(0).toLowerCase()) {
+            resEmail+= "First letter shouldn't Caps! <br>"
+    } if (!e.includes('@')) {
+        resEmail+= "@ symbol missed <br>" 
+    } if (!e.includes('.com')) {
+        resEmail+= ".com missed <br>" 
+    } if (e.includes(' ')){
+        resEmail+= "eMail shouldn't have space <br>" 
+    } else {                    //to track response (if email meets all conditions)
+        console.log('processing...') 
+        outEmail = true;
+    }
+    console.log(resEmail)
+} 
+passLength = false;
+    //to check whether password field is empty  
+    if(p == undefined){         
+            resPass+= "This field can't be empty <br>"
+    } else {
+    if (p.length != 8){         //to check password length
+        resPass += "Password length should be atleast 8 chars <br>"
+    } else { 
+        passLength = true;
+    }
+    //to check whether password ahd any spaces
+    let spacePass= false;
+    if (p.includes(' ')){
+        resPass += "Password shouldn't contain any spaces <br>"
+    } else {
+        spacePass= true;
+    }
+    //to check whether password contains any symbols in ,./\{}[]()-+=*@!#$%^&<>?;:
+    let sym = ',./\{}[]()-+=*@!#$%^&<>?;:', symOp = false;
+    for (let b of sym) {
+        if (p.includes(b)){
+            symOp = true;
+            p=p.replace(b,'')
+        }
+    }
+    if(symOp == false){
+        resPass += "Password should contain atleast one symbol from ,./\{}[]()-+=*@!#$%^&<>?;: <br>"
+    }
+    //to check whether password contains one lowercase
+    pass = p.split('');
+    let aSome = pass.some ((a) => {
+        if(isNaN(a)){
+        return a == a.toLowerCase()
+        }
+    })
+    if(aSome == false){
+        resPass += "Password should contain atleast one lowercase <br>" 
+    }
+    //to check whether password contains one uppercase
+    let bSome = pass.some ((a) => {
+        if(isNaN(a)){
+        return a == a.toUpperCase()
+        }
+    })
+    console.log(bSome)
+    if(bSome == false){
+        resPass += "Password should contain atleast one uppercase <br>" 
+    }
+    //to check whether password contains one numeric
+    let cSome = pass.some ((a) => {
+        return (!isNaN(a))
+    })
+    if(cSome == false){
+        resPass += "Password should contain atleast one numeric <br>" 
+    }
+    console.log(resPass)
+}
+//to check resEmail/resPass length(i.e.. if 'resEmail/resPass' has any contents, it might be missing some conditions)
+//those response will be displayed in 'p' tag
+    if(resEmail.length != 0){
+    document.getElementById('pEmail').innerHTML= resEmail
+    }
+    if(resPass.length != 0){
+    document.getElementById('pPass').innerHTML= resPass
+    } else {
+        outPass = true;
+    }
+    //if both met all conditions, it redirected to given web page
+    if(outEmail && outPass == true){
+        //console.log('print')
+        window.location.href = "day 13.html"
+    }
+    //response will show only for 3secs
+    setTimeout (() => {
+        document.getElementById('pEmail').innerHTML = ""
+        document.getElementById('pPass').innerHTML = ""
+    }, 5000)
+}
+    </script>
+</body>
+</html>
+
+
