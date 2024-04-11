@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stop watch</title>
+    <style>
+      body{
+        background: rgb(0, 0, 35);
+        padding: 0;
+        margin: 0;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        color: rgb(236, 222, 135);
+      }
+      #body{
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        row-gap: 5vh;
+        justify-content: center;
+        align-items: center;
+      }
+      #clock{
+        background: rgb(0, 0, 35);
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        box-shadow: inset 0 0 0.5em 0.1em white;
+      }
+      .content{
+        height: 20px;
+        width: 180px;
+        padding-top: 3%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+      p{
+        width: 10px;
+        height: 10px;
+        color: white;
+        font-size: 1.2em;
+      }
+      button{
+        background-color: rgb(236, 222, 135);
+        width: 80px;
+        height: 5vh;
+        border-radius: 3px;
+        border: 0;
+        font-weight: 700;
+      }
+      button:hover{
+        box-shadow: 2px 2px 3px 2px white;
+      }
+      #button{
+        width: 350px;
+        display: flex;
+        justify-content: space-around;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="body">
+      <h1>Stop Watch</h1>
+    <div id="clock">
+      <div id="contentBody">
+      <div class="content">
+    <p><b>HH</b></p>
+    <p><b>MM</b></p>
+    <p><b>SS</b></p>
+  </div>
+  <div class="content">
+    <p></p>
+    <p></p>
+    <p></p>
+  </div>
+  </div>
+</div>
+  <div id="button">
+    <button id="bStart" on>Start</button>
+    <button id="bStop">Pause</button>
+    <button id="bRetart">Restart</button>
+  </div>
+</div>
+    <script>
+      let hh, mm, sec, i=0, j=0, k=0;
+      document.getElementsByTagName('p')[3].innerHTML=i;
+      document.getElementsByTagName('p')[4].innerHTML=j;
+      document.getElementsByTagName('p')[5].innerHTML=k;
+      let startWatch=()=> {
+          hh = setInterval(() => {
+              i=i+1;
+              document.getElementsByTagName('p')[3].innerHTML=i
+              // console.log('hi')
+          },3600000)
+          mm = setInterval(() => {
+              j=j+1;
+              document.getElementsByTagName('p')[4].innerHTML=j
+              if (j==60){
+                j=0;
+              }
+              // console.log('hi')
+          },60000)
+          sec = setInterval(() => {
+              k=k+1;
+              document.getElementsByTagName('p')[5].innerHTML=k
+              if (k==60){
+                k=0;
+              }
+              // console.log('hi')
+          },1000)
+      }
+      let stopWatch = () => {
+            clearInterval (hh)
+            clearInterval (mm)
+            clearInterval (sec)
+      }
+      let restartWatch= () => {
+        stopWatch();
+        i=0, j=0, k=0;
+        startWatch();
+      }
+      document.getElementById('bStart').addEventListener('click', startWatch)
+      document.getElementById('bRetart').addEventListener("click", restartWatch)
+      document.getElementById('bStop').addEventListener("click", stopWatch)
+    </script>
+  </body>
+</html>
