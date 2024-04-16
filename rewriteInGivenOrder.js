@@ -1,7 +1,7 @@
 //Rewrite the words such that number comes first symbol next and alphabet. If we have hello1@ Then expected was 1@hello
 console.log("\n4. Rewrite the words such that number comes first symbol next and alphabet. If we have hello1@ Then expected was 1@hello")
 const rewriteOrder = (a) => {
-    let arr = a.trim(' ').split(''), res='';
+    let arr = a.split(''), res='';
     let num = arr.filter ((a) => {
         return !isNaN(a)
     })
